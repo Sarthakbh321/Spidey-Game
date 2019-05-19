@@ -1,16 +1,17 @@
 package com.mygame.testgame;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Main extends ApplicationAdapter {
+public class Main extends Game {
 	SpriteBatch batch;
 	Texture img;
-	int x, y;
+	float x, y;
+	public static final float SPEED = 40;
 	
 	@Override
 	public void create () {
@@ -24,16 +25,16 @@ public class Main extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		if(Gdx.input.isKeyPressed(Keys.UP)) {
-			y = y + 4;
+			y = y + SPEED*Gdx.graphics.getDeltaTime();
 		}
 		if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
-			x = x + 4;
+			x = x + SPEED*Gdx.graphics.getDeltaTime();
 		}
 		if(Gdx.input.isKeyPressed(Keys.DOWN)) {
-			y = y - 4;
+			y = y - SPEED*Gdx.graphics.getDeltaTime();
 		}
 		if(Gdx.input.isKeyPressed(Keys.LEFT)) {
-			x = x - 4;
+			x = x - SPEED*Gdx.graphics.getDeltaTime();
 		}
 		batch.begin();
 		batch.draw(img, x, y);
