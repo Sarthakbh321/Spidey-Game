@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.Input.Keys;
@@ -16,7 +17,9 @@ import com.mygame.testgame.Main;
 public class MainGameScreen implements Screen{
 	Main main;
 	Texture img1, food, backgroundImg;
+	
 	Sound score_effect = Gdx.audio.newSound(Gdx.files.internal("point_effect.mp3"));
+	Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("background.wav"));
 	Random r = new Random();
 	float x, y;
 	public static float SPEED = 240;
@@ -36,7 +39,8 @@ public class MainGameScreen implements Screen{
 		food = new Texture("food.png");
 		backgroundImg = new Texture("background.jpg");
 		font = new BitmapFont();
-		
+		backgroundMusic.play();
+		backgroundMusic.setLooping(true);
 	}
 
 	@Override
@@ -45,11 +49,11 @@ public class MainGameScreen implements Screen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		if(Math.abs(x-foodPosX) <= 30F && Math.abs(y-foodPosY) <= 30F) {
-			foodPosX = r.nextInt(700);
-			foodPosY = r.nextInt(500);
+			foodPosX = r.nextInt(650)+50;
+			foodPosY = r.nextInt(450)+50;
 			SPEED += 10;
 			score++;
-			score_effect.play();
+			score_effect.play(0.4f);
 		}
 	
 		if(Gdx.input.isKeyPressed(Keys.UP)) {
@@ -104,6 +108,7 @@ public class MainGameScreen implements Screen{
 		img1.dispose();
 		food.dispose();
 		score_effect.dispose();
+		backgroundMusic.dispose();
 		main.batch.dispose();
 	}
 
