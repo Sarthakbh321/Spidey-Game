@@ -3,12 +3,11 @@ package com.mygame.testgame.screens;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -20,12 +19,15 @@ public class MainGameScreen implements Screen{
 	
 	Sound score_effect = Gdx.audio.newSound(Gdx.files.internal("point_effect.mp3"));
 	Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("background.wav"));
+	
 	Random r = new Random();
+	
 	float x, y;
 	public static float SPEED = 240;
 	float foodPosX = r.nextInt(800);
 	float foodPosY = r.nextInt(600);
 	int score = 0;
+	
 	BitmapFont font;
 	Preferences prefs = Gdx.app.getPreferences("high-score.prefs");
 	
@@ -38,8 +40,11 @@ public class MainGameScreen implements Screen{
 		img1 = new Texture("spider.png");
 		food = new Texture("food.png");
 		backgroundImg = new Texture("background.jpg");
+		
 		font = new BitmapFont();
+		
 		backgroundMusic.play();
+		backgroundMusic.setPan(0, 0.6f);
 		backgroundMusic.setLooping(true);
 	}
 
